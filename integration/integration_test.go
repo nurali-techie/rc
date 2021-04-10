@@ -10,25 +10,34 @@ import (
 
 var rcBinary = "../out/rc"
 
-func TestRcCli(t *testing.T) {
+func TestHelpCmd(t *testing.T) {
 	cmd, display := cmdRc()
-	defer display(t)
+	defer display(t, "rc stands for recall")
 	err := cmd.Run()
 	assert.NoError(t, err)
 }
 
-func cmdRc(args ...string) (*exec.Cmd, func(t *testing.T)) {
+func TestGetCmd(t *testing.T) {
+	cmd, display := cmdRc("1")
+	defer display(t, "GetCmd", "1")
+	err := cmd.Run()
+	assert.NoError(t, err)
+}
+
+func cmdRc(args ...string) (*exec.Cmd, func(t *testing.T, wants ...string)) {
 	cmd := exec.Command(rcBinary, args...)
 
 	var out bytes.Buffer
 	cmd.Stderr = &out
 	cmd.Stdout = &out
 
-	display := func(t *testing.T) {
+	display := func(t *testing.T, wants ...string) {
 		if out.Len() == 0 {
 			return
 		}
-		t.Log(out.String())
+		for _, want := range wants {
+			assert.Contains(t, out.String(), want)
+		}
 	}
 
 	return cmd, display
