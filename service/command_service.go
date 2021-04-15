@@ -10,6 +10,7 @@ import (
 type CommandService interface {
 	Add(ctx context.Context, command *domain.Commmand) error
 	Get(ctx context.Context, key string) (*domain.Commmand, error)
+	List(ctx context.Context, query string) ([]string, error)
 }
 
 type commandService struct {
@@ -28,4 +29,8 @@ func (s *commandService) Add(ctx context.Context, command *domain.Commmand) erro
 
 func (s *commandService) Get(ctx context.Context, key string) (*domain.Commmand, error) {
 	return s.store.Get(ctx, key)
+}
+
+func (s *commandService) List(ctx context.Context, query string) ([]string, error) {
+	return s.store.List(ctx, query)
 }

@@ -27,6 +27,7 @@ func (c *getCommand) Execute(ctx context.Context, in cli.Input, out cli.Output, 
 	if err != nil {
 		return err
 	}
+	fmt.Println("VN: key=", command.Key, ", text=", command.Text)
 	out.SetContent([]byte(command.Text))
 	return nil
 }

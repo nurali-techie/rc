@@ -22,14 +22,13 @@ func NewAddCommand(service service.CommandService) cli.Command {
 func (c *addCommand) Execute(ctx context.Context, in cli.Input, out cli.Output, args []string) error {
 	fmt.Println("AddCmd, args:", args)
 
-	if len(args) == 0 {
+	if len(args) < 2 {
 		return nil
 	}
 
 	command := &domain.Commmand{
 		Key:  args[0],
-		Text: string(in.GetContent()),
+		Text: args[1],
 	}
-	c.service.Add(ctx, command)
-	return nil
+	return c.service.Add(ctx, command)
 }
