@@ -1,5 +1,7 @@
 package clipboard
 
+import "fmt"
+
 type clipboard struct {
 }
 
@@ -12,5 +14,6 @@ func (input *clipboard) GetContent() []byte {
 }
 
 func (output *clipboard) SetContent(content []byte) error {
+	fmt.Println("clipboard:", string(content))
 	return nil
 }

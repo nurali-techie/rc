@@ -11,15 +11,17 @@ import (
 
 type addCommand struct {
 	service service.CommandService
+	input   cli.Input
 }
 
-func NewAddCommand(service service.CommandService) cli.Command {
-	addCommand := new(addCommand)
-	addCommand.service = service
-	return addCommand
+func NewAddCommand(service service.CommandService, input cli.Input) cli.Command {
+	addCmd := new(addCommand)
+	addCmd.service = service
+	addCmd.input = input
+	return addCmd
 }
 
-func (c *addCommand) Execute(ctx context.Context, in cli.Input, out cli.Output, args []string) error {
+func (c *addCommand) Execute(ctx context.Context, args []string) error {
 	fmt.Println("AddCmd, args:", args)
 
 	if len(args) < 2 {

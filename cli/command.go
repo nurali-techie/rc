@@ -3,5 +3,5 @@ package cli
 import "context"
 
 type Command interface {
-	Execute(ctx context.Context, in Input, out Output, args []string) error
+	Execute(ctx context.Context, args []string) error
 }

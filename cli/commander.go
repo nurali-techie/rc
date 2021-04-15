@@ -24,16 +24,16 @@ func (c *Commander) Register(name string, command Command) {
 	c.commands[name] = command
 }
 
-func (c *Commander) ServeCommand(in Input, out Output, args []string) error {
+func (c *Commander) ServeCommand(args []string) error {
 	if len(args) == 0 {
-		return c.helpCmd.Execute(context.Background(), in, out, args)
+		return c.helpCmd.Execute(context.Background(), args)
 	}
 
 	cmdName := args[0]
 	cmd := c.commands[cmdName]
 	if cmd == nil {
-		return c.defaultCmd.Execute(context.Background(), in, out, args)
+		return c.defaultCmd.Execute(context.Background(), args)
 	}
 
-	return cmd.Execute(context.Background(), in, out, args[1:])
+	return cmd.Execute(context.Background(), args[1:])
 }

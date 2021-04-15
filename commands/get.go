@@ -10,15 +10,17 @@ import (
 
 type getCommand struct {
 	service service.CommandService
+	output  cli.Output
 }
 
-func NewGetCommand(service service.CommandService) cli.Command {
-	getCommad := new(getCommand)
-	getCommad.service = service
-	return getCommad
+func NewGetCommand(service service.CommandService, output cli.Output) cli.Command {
+	getCmd := new(getCommand)
+	getCmd.service = service
+	getCmd.output = output
+	return getCmd
 }
 
-func (c *getCommand) Execute(ctx context.Context, in cli.Input, out cli.Output, args []string) error {
+func (c *getCommand) Execute(ctx context.Context, args []string) error {
 	fmt.Println("GetCmd, args:", args)
 	if len(args) == 0 {
 		return nil
@@ -27,7 +29,6 @@ func (c *getCommand) Execute(ctx context.Context, in cli.Input, out cli.Output, 
 	if err != nil {
 		return err
 	}
-	fmt.Println("VN: key=", command.Key, ", text=", command.Text)
-	out.SetContent([]byte(command.Text))
+	c.output.SetContent([]byte(fmt.Sprintf("key=%s, text=%s", command.Key, command.Text)))
 	return nil
 }

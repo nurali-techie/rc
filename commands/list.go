@@ -10,15 +10,17 @@ import (
 
 type listCommand struct {
 	service service.CommandService
+	output  cli.Output
 }
 
-func NewListCommand(service service.CommandService) cli.Command {
-	listCommand := new(listCommand)
-	listCommand.service = service
-	return listCommand
+func NewListCommand(service service.CommandService, output cli.Output) cli.Command {
+	listCmd := new(listCommand)
+	listCmd.service = service
+	listCmd.output = output
+	return listCmd
 }
 
-func (c *listCommand) Execute(ctx context.Context, in cli.Input, out cli.Output, args []string) error {
+func (c *listCommand) Execute(ctx context.Context, args []string) error {
 	query := ""
 	if len(args) > 0 {
 		query = args[0]
@@ -28,7 +30,7 @@ func (c *listCommand) Execute(ctx context.Context, in cli.Input, out cli.Output,
 		return err
 	}
 	for _, key := range keys {
-		fmt.Println("VN: key=", key)
+		c.output.SetContent([]byte(fmt.Sprintf("key=%s\n", key)))
 	}
 	return nil
 }

@@ -8,13 +8,16 @@ import (
 )
 
 type helpCommand struct {
+	output cli.Output
 }
 
-func NewHelpCommand() cli.Command {
-	return new(helpCommand)
+func NewHelpCommand(output cli.Output) cli.Command {
+	helpCmd := new(helpCommand)
+	helpCmd.output = output
+	return helpCmd
 }
 
-func (c *helpCommand) Execute(ctx context.Context, in cli.Input, out cli.Output, args []string) error {
-	fmt.Println("rc stands for recall, args:", args)
+func (c *helpCommand) Execute(ctx context.Context, args []string) error {
+	c.output.SetContent([]byte(fmt.Sprintf("rc stands for recall, args:%v", args)))
 	return nil
 }
