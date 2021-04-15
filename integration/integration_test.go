@@ -18,9 +18,14 @@ func TestHelpCmd(t *testing.T) {
 }
 
 func TestGetCmd(t *testing.T) {
-	cmd, display := cmdRc("1")
-	defer display(t, "GetCmd", "1")
+	cmd, display := cmdRc("add", "k1", "v1")
+	defer display(t)
 	err := cmd.Run()
+	assert.NoError(t, err)
+
+	cmd, display = cmdRc("k1")
+	defer display(t, "GetCmd", "v1")
+	err = cmd.Run()
 	assert.NoError(t, err)
 }
 
@@ -35,8 +40,9 @@ func cmdRc(args ...string) (*exec.Cmd, func(t *testing.T, wants ...string)) {
 		if out.Len() == 0 {
 			return
 		}
+		output := out.String()
 		for _, want := range wants {
-			assert.Contains(t, out.String(), want)
+			assert.Contains(t, output, want)
 		}
 	}
 

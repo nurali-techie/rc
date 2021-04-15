@@ -4,17 +4,17 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/nurali-techie/rc/command"
+	"github.com/nurali-techie/rc/cli"
 )
 
-type helpCmd struct {
+type helpCommand struct {
 }
 
-func NewHelpCommand() command.Command {
-	return new(helpCmd)
+func NewHelpCommand() cli.Command {
+	return new(helpCommand)
 }
 
-func (c *helpCmd) Execute(ctx context.Context, in command.Input, out command.Output, args []string) error {
+func (c *helpCommand) Execute(ctx context.Context, in cli.Input, out cli.Output, args []string) error {
 	fmt.Println("rc stands for recall, args:", args)
 	return nil
 }

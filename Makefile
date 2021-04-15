@@ -1,5 +1,5 @@
 build: clean
-	go build -o ./out/ ./cmd/rc
+	go build -o ./out/rc .
 
 clean:
 	rm -f ./out/rc
