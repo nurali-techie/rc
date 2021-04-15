@@ -2,10 +2,13 @@ package commands
 
 import (
 	"context"
-	"fmt"
+	_ "embed"
 
 	"github.com/nurali-techie/rc/cli"
 )
+
+//go:embed help.txt
+var help string
 
 type helpCommand struct {
 	output cli.Output
@@ -18,6 +21,6 @@ func NewHelpCommand(output cli.Output) cli.Command {
 }
 
 func (c *helpCommand) Execute(ctx context.Context, args []string) error {
-	c.output.SetContent([]byte(fmt.Sprintf("rc stands for recall, args:%v", args)))
+	c.output.SetContent([]byte(help))
 	return nil
 }
