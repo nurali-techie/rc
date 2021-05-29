@@ -12,7 +12,7 @@ var rcBinary = "../out/rc"
 
 func TestHelpCmd(t *testing.T) {
 	cmd, display := cmdRc()
-	defer display(t, "rc stands for recall")
+	defer display(t, `'rc' stands for 'recall'`)
 	err := cmd.Run()
 	assert.NoError(t, err)
 }

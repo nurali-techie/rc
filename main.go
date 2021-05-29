@@ -29,10 +29,12 @@ func main() {
 	clipboard := clipboard.NewClipboard()
 	console := console.NewConsole()
 
-	// register commands
+	// init commander
 	helpCmd := commands.NewHelpCommand(console)
 	getCmd := commands.NewGetCommand(commandService, clipboard)
 	commander := cli.NewCommander(helpCmd, getCmd)
+
+	// register commands
 	commander.Register("add", commands.NewAddCommand(commandService, clipboard))
 	commander.Register("ls", commands.NewListCommand(commandService, console))
 	commander.Register("web", commands.NewWebCommand(commandService))

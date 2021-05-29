@@ -21,7 +21,8 @@ func NewWebCommand(service service.CommandService) cli.Command {
 }
 
 func (c *webCommand) Execute(ctx context.Context, args []string) error {
+	http.HandleFunc("/", handlers.NewHomeHandler())
 	http.HandleFunc("/ls", handlers.NewListHandler(c.service))
-	fmt.Println("VN: open http://localhost:8383")
+	fmt.Println("open http://localhost:8383")
 	return http.ListenAndServe(":8383", nil)
 }
