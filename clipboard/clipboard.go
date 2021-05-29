@@ -1,6 +1,8 @@
 package clipboard
 
-import "fmt"
+import (
+	cb "github.com/atotto/clipboard"
+)
 
 type clipboard struct {
 }
@@ -9,11 +11,10 @@ func NewClipboard() *clipboard {
 	return new(clipboard)
 }
 
-func (input *clipboard) GetContent() []byte {
-	return []byte{}
+func (input *clipboard) GetContent() (string, error) {
+	return cb.ReadAll()
 }
 
-func (output *clipboard) SetContent(content []byte) error {
-	fmt.Println("clipboard:", string(content))
-	return nil
+func (output *clipboard) SetContent(content string) error {
+	return cb.WriteAll(content)
 }

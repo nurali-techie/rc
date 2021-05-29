@@ -21,6 +21,6 @@ func NewHelpCommand(output cli.Output) cli.Command {
 }
 
 func (c *helpCommand) Execute(ctx context.Context, args []string) error {
-	c.output.SetContent([]byte(help))
+	c.output.SetContent(help)
 	return nil
 }

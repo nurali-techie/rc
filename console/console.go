@@ -11,7 +11,7 @@ func NewConsole() *console {
 	return new(console)
 }
 
-func (output *console) SetContent(content []byte) error {
-	os.Stdout.Write(content)
+func (output *console) SetContent(content string) error {
+	os.Stdout.Write([]byte(content))
 	return nil
 }

@@ -42,7 +42,7 @@ func main() {
 	// execute command
 	err = commander.ServeCommand(os.Args[1:])
 	if err != nil {
-		fmt.Println("Error:", err)
+		fmt.Printf("error: %v\n", err)
 		os.Exit(1)
 	}
 }

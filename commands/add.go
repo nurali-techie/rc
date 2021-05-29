@@ -22,15 +22,25 @@ func NewAddCommand(service service.CommandService, input cli.Input) cli.Command 
 }
 
 func (c *addCommand) Execute(ctx context.Context, args []string) error {
-	fmt.Println("AddCmd, args:", args)
+	if len(args) < 1 {
+		return fmt.Errorf("parameter missing, please provide <command_name> as first parameter")
+	}
+	key := args[0]
 
-	if len(args) < 2 {
-		return nil
+	text, err := c.input.GetContent()
+	if err != nil {
+		return err
 	}
 
 	command := &domain.Commmand{
-		Key:  args[0],
-		Text: args[1],
+		Key:  key,
+		Text: text,
 	}
-	return c.service.Add(ctx, command)
+	err = c.service.Add(ctx, command)
+	if err != nil {
+		return err
+	}
+
+	fmt.Println("info: command added")
+	return nil
 }

@@ -30,7 +30,7 @@ func (c *listCommand) Execute(ctx context.Context, args []string) error {
 		return err
 	}
 	for _, key := range keys {
-		c.output.SetContent([]byte(fmt.Sprintf("key=%s\n", key)))
+		c.output.SetContent(fmt.Sprintf("key=%s\n", key))
 	}
 	return nil
 }

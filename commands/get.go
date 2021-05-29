@@ -21,14 +21,20 @@ func NewGetCommand(service service.CommandService, output cli.Output) cli.Comman
 }
 
 func (c *getCommand) Execute(ctx context.Context, args []string) error {
-	fmt.Println("GetCmd, args:", args)
-	if len(args) == 0 {
-		return nil
+	if len(args) < 1 {
+		return fmt.Errorf("parameter missing, please provide <number> as first parameter")
 	}
+
 	command, err := c.service.Get(ctx, args[0])
 	if err != nil {
 		return err
 	}
-	c.output.SetContent([]byte(fmt.Sprintf("key=%s, text=%s", command.Key, command.Text)))
+
+	err = c.output.SetContent(command.Text)
+	if err != nil {
+		return err
+	}
+
+	fmt.Println("info: command copied to clipboard")
 	return nil
 }
