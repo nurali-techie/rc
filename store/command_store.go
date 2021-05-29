@@ -3,6 +3,7 @@ package store
 import (
 	"context"
 	"database/sql"
+	"fmt"
 
 	"github.com/nurali-techie/rc/domain"
 )
@@ -56,7 +57,7 @@ func (s *commandStore) Get(ctx context.Context, key string) (*domain.Commmand, e
 		return command, nil
 	}
 
-	return nil, nil
+	return nil, fmt.Errorf("'%s' command key not found", key)
 }
 
 func (s *commandStore) List(ctx context.Context, query string) ([]string, error) {

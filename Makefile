@@ -1,6 +1,9 @@
 build: clean
 	go build -o ./out/rc .
 
+install: build
+	go install
+
 clean:
 	rm -f ./out/rc
 
