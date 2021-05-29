@@ -5,6 +5,7 @@ import (
 	"os"
 
 	_ "github.com/mattn/go-sqlite3"
+	"github.com/nurali-techie/rc/cfg"
 	"github.com/nurali-techie/rc/cli"
 	"github.com/nurali-techie/rc/clipboard"
 	"github.com/nurali-techie/rc/commands"
@@ -16,6 +17,9 @@ import (
 
 func main() {
 	var err error
+
+	// init config
+	cfg.Init()
 
 	// setup database
 	db, closeFn := database.GetDatabase()

@@ -4,6 +4,8 @@ import (
 	"database/sql"
 	"fmt"
 	"os"
+
+	"github.com/nurali-techie/rc/cfg"
 )
 
 func GetDatabase() (*sql.DB, func(db *sql.DB)) {
@@ -23,18 +25,21 @@ func GetDatabase() (*sql.DB, func(db *sql.DB)) {
 }
 
 func openDB() *sql.DB {
-	homeDir, err := os.UserHomeDir()
-	if err != nil {
-		panic(err)
+	dbPath := cfg.GetDBPath()
+	if dbPath == "" {
+		homeDir, err := os.UserHomeDir()
+		if err != nil {
+			panic(err)
+		}
+		dbPath = fmt.Sprintf("%s/.rc", homeDir)
 	}
 
-	dbDir := fmt.Sprintf("%s/.rc", homeDir)
-	err = os.Mkdir(dbDir, 0755)
+	err := os.Mkdir(dbPath, 0755)
 	if err != nil && !os.IsExist(err) {
 		panic(err)
 	}
 
-	dbFile := fmt.Sprintf("%s/rc.db", dbDir)
+	dbFile := fmt.Sprintf("%s/rc.db", dbPath)
 	db, err := sql.Open("sqlite3", dbFile)
 	if err != nil {
 		panic(err)
