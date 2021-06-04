@@ -1,4 +1,4 @@
-package commands
+package command
 
 import (
 	"context"
@@ -6,7 +6,7 @@ import (
 	"net/http"
 
 	"github.com/nurali-techie/rc/cli"
-	"github.com/nurali-techie/rc/handlers"
+	"github.com/nurali-techie/rc/handler"
 	"github.com/nurali-techie/rc/service"
 )
 
@@ -21,8 +21,8 @@ func NewWebCommand(service service.CommandService) cli.Command {
 }
 
 func (c *webCommand) Execute(ctx context.Context, args []string) error {
-	http.HandleFunc("/", handlers.NewHomeHandler())
-	http.HandleFunc("/ls", handlers.NewListHandler(c.service))
+	http.HandleFunc("/", handler.NewHomeHandler())
+	http.HandleFunc("/ls", handler.NewListHandler(c.service))
 	fmt.Println("open http://localhost:8383")
 	return http.ListenAndServe(":8383", nil)
 }
