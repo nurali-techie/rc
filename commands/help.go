@@ -5,16 +5,17 @@ import (
 	_ "embed"
 
 	"github.com/nurali-techie/rc/cli"
+	"github.com/nurali-techie/rc/io"
 )
 
 //go:embed help.txt
 var help string
 
 type helpCommand struct {
-	output cli.Output
+	output io.Output
 }
 
-func NewHelpCommand(output cli.Output) cli.Command {
+func NewHelpCommand(output io.Output) cli.Command {
 	helpCmd := new(helpCommand)
 	helpCmd.output = output
 	return helpCmd

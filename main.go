@@ -7,10 +7,9 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 	"github.com/nurali-techie/rc/cfg"
 	"github.com/nurali-techie/rc/cli"
-	"github.com/nurali-techie/rc/clipboard"
 	"github.com/nurali-techie/rc/commands"
-	"github.com/nurali-techie/rc/console"
 	"github.com/nurali-techie/rc/database"
+	"github.com/nurali-techie/rc/io"
 	"github.com/nurali-techie/rc/service"
 	"github.com/nurali-techie/rc/store"
 )
@@ -30,8 +29,8 @@ func main() {
 	commandService := service.NewCommandService(commandStore)
 
 	// setup input, output
-	clipboard := clipboard.NewClipboard()
-	console := console.NewConsole()
+	clipboard := io.NewClipboard()
+	console := io.NewConsole()
 
 	// init commander
 	helpCmd := commands.NewHelpCommand(console)

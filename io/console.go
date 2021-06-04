@@ -1,4 +1,4 @@
-package console
+package io
 
 import (
 	"os"

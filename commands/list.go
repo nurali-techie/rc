@@ -5,15 +5,16 @@ import (
 	"fmt"
 
 	"github.com/nurali-techie/rc/cli"
+	"github.com/nurali-techie/rc/io"
 	"github.com/nurali-techie/rc/service"
 )
 
 type listCommand struct {
 	service service.CommandService
-	output  cli.Output
+	output  io.Output
 }
 
-func NewListCommand(service service.CommandService, output cli.Output) cli.Command {
+func NewListCommand(service service.CommandService, output io.Output) cli.Command {
 	listCmd := new(listCommand)
 	listCmd.service = service
 	listCmd.output = output
