@@ -9,8 +9,8 @@ import (
 	"github.com/nurali-techie/rc/config"
 	"github.com/nurali-techie/rc/database"
 	"github.com/nurali-techie/rc/io"
+	"github.com/nurali-techie/rc/repository"
 	"github.com/nurali-techie/rc/service"
-	"github.com/nurali-techie/rc/store"
 )
 
 func main() {
@@ -24,8 +24,8 @@ func main() {
 	defer closeFn(db)
 
 	// setup dependency
-	commandStore := store.NewCommandStore(db)
-	commandService := service.NewCommandService(commandStore)
+	commandRepository := repository.NewCommandRepository(db)
+	commandService := service.NewCommandService(commandRepository)
 
 	// setup input, output
 	clipboard := io.NewClipboard()

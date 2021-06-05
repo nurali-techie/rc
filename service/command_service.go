@@ -7,23 +7,23 @@ import (
 )
 
 type commandService struct {
-	store domain.CommandStore
+	repo domain.CommandRepository
 }
 
-func NewCommandService(store domain.CommandStore) domain.CommandService {
+func NewCommandService(repo domain.CommandRepository) domain.CommandService {
 	commandService := new(commandService)
-	commandService.store = store
+	commandService.repo = repo
 	return commandService
 }
 
 func (s *commandService) Add(ctx context.Context, command *domain.Commmand) error {
-	return s.store.Add(ctx, command)
+	return s.repo.Add(ctx, command)
 }
 
 func (s *commandService) Get(ctx context.Context, key string) (*domain.Commmand, error) {
-	return s.store.Get(ctx, key)
+	return s.repo.Get(ctx, key)
 }
 
 func (s *commandService) List(ctx context.Context, query string) ([]string, error) {
-	return s.store.List(ctx, query)
+	return s.repo.List(ctx, query)
 }

@@ -1,4 +1,4 @@
-package store
+package repository
 
 import (
 	"context"
@@ -14,17 +14,17 @@ const (
 	LIST_COMMAND_SQL   = "SELECT key from commands WHERE key like ?"
 )
 
-type commandStore struct {
+type commandRepository struct {
 	db *sql.DB
 }
 
-func NewCommandStore(db *sql.DB) domain.CommandStore {
-	commandStore := new(commandStore)
-	commandStore.db = db
-	return commandStore
+func NewCommandRepository(db *sql.DB) domain.CommandRepository {
+	commandRepo := new(commandRepository)
+	commandRepo.db = db
+	return commandRepo
 }
 
-func (s *commandStore) Add(ctx context.Context, command *domain.Commmand) error {
+func (s *commandRepository) Add(ctx context.Context, command *domain.Commmand) error {
 	stmt, err := s.db.Prepare(INSERT_COMMAND_SQL)
 	if err != nil {
 		return err
@@ -35,7 +35,7 @@ func (s *commandStore) Add(ctx context.Context, command *domain.Commmand) error 
 	return err
 }
 
-func (s *commandStore) Get(ctx context.Context, key string) (*domain.Commmand, error) {
+func (s *commandRepository) Get(ctx context.Context, key string) (*domain.Commmand, error) {
 	rows, err := s.db.Query(SELECT_COMMAND_SQL, key)
 	if err != nil {
 		return nil, err
@@ -54,7 +54,7 @@ func (s *commandStore) Get(ctx context.Context, key string) (*domain.Commmand, e
 	return nil, fmt.Errorf("'%s' command key not found", key)
 }
 
-func (s *commandStore) List(ctx context.Context, query string) ([]string, error) {
+func (s *commandRepository) List(ctx context.Context, query string) ([]string, error) {
 	query = "%" + query + "%"
 	rows, err := s.db.Query(LIST_COMMAND_SQL, query)
 	if err != nil {
