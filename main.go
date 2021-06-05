@@ -5,10 +5,9 @@ import (
 	"os"
 
 	_ "github.com/mattn/go-sqlite3"
-	"github.com/nurali-techie/rc/cfg"
-	"github.com/nurali-techie/rc/cli"
 	"github.com/nurali-techie/rc/command"
-	"github.com/nurali-techie/rc/db"
+	"github.com/nurali-techie/rc/config"
+	"github.com/nurali-techie/rc/database"
 	"github.com/nurali-techie/rc/io"
 	"github.com/nurali-techie/rc/service"
 	"github.com/nurali-techie/rc/store"
@@ -18,10 +17,10 @@ func main() {
 	var err error
 
 	// init config
-	cfg.Init()
+	config.Init()
 
 	// setup database
-	db, closeFn := db.GetDatabase()
+	db, closeFn := database.GetDatabase()
 	defer closeFn(db)
 
 	// setup dependency
@@ -35,7 +34,7 @@ func main() {
 	// init commander
 	helpCmd := command.NewHelpCommand(console)
 	getCmd := command.NewGetCommand(commandService, clipboard)
-	commander := cli.NewCommander(helpCmd, getCmd)
+	commander := NewCommander(helpCmd, getCmd)
 
 	// register commands
 	commander.Register("add", command.NewAddCommand(commandService, clipboard))

@@ -1,4 +1,4 @@
-package cfg
+package config
 
 import "github.com/spf13/viper"
 
@@ -6,13 +6,13 @@ type config struct {
 	dbPath string
 }
 
-var c *config
+var cfg *config
 
 func Init() {
 	viperInit()
-	c = &config{}
+	cfg = &config{}
 
-	c.dbPath = viper.GetString("DB_PATH")
+	cfg.dbPath = viper.GetString("DB_PATH")
 }
 
 func viperInit() {
@@ -24,5 +24,5 @@ func viperInit() {
 }
 
 func GetDBPath() string {
-	return c.dbPath
+	return cfg.dbPath
 }

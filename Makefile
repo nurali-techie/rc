@@ -12,4 +12,4 @@ go-mod:
 	go mod verify
 
 test-integration:
-	go test ./integration -v
+	go test ./tests -v

@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/nurali-techie/rc/cli"
 	"github.com/nurali-techie/rc/io"
 	"github.com/nurali-techie/rc/service"
 )
@@ -14,7 +13,7 @@ type getCommand struct {
 	output  io.Output
 }
 
-func NewGetCommand(service service.CommandService, output io.Output) cli.Command {
+func NewGetCommand(service service.CommandService, output io.Output) Command {
 	getCmd := new(getCommand)
 	getCmd.service = service
 	getCmd.output = output

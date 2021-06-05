@@ -1,11 +1,11 @@
-package db
+package database
 
 import (
 	"database/sql"
 	"fmt"
 	"os"
 
-	"github.com/nurali-techie/rc/cfg"
+	"github.com/nurali-techie/rc/config"
 )
 
 func GetDatabase() (*sql.DB, func(db *sql.DB)) {
@@ -25,7 +25,7 @@ func GetDatabase() (*sql.DB, func(db *sql.DB)) {
 }
 
 func openDB() *sql.DB {
-	dbPath := cfg.GetDBPath()
+	dbPath := config.GetDBPath()
 	if dbPath == "" {
 		homeDir, err := os.UserHomeDir()
 		if err != nil {
