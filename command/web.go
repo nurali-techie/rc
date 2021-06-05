@@ -5,15 +5,15 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/nurali-techie/rc/domain"
 	"github.com/nurali-techie/rc/handler"
-	"github.com/nurali-techie/rc/service"
 )
 
 type webCommand struct {
-	service service.CommandService
+	service domain.CommandService
 }
 
-func NewWebCommand(service service.CommandService) Command {
+func NewWebCommand(service domain.CommandService) Command {
 	webCmd := new(webCommand)
 	webCmd.service = service
 	return webCmd

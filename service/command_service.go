@@ -4,20 +4,13 @@ import (
 	"context"
 
 	"github.com/nurali-techie/rc/domain"
-	"github.com/nurali-techie/rc/store"
 )
 
-type CommandService interface {
-	Add(ctx context.Context, command *domain.Commmand) error
-	Get(ctx context.Context, key string) (*domain.Commmand, error)
-	List(ctx context.Context, query string) ([]string, error)
-}
-
 type commandService struct {
-	store store.CommandStore
+	store domain.CommandStore
 }
 
-func NewCommandService(store store.CommandStore) CommandService {
+func NewCommandService(store domain.CommandStore) domain.CommandService {
 	commandService := new(commandService)
 	commandService.store = store
 	return commandService

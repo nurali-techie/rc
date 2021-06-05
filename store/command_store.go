@@ -14,17 +14,11 @@ const (
 	LIST_COMMAND_SQL   = "SELECT key from commands WHERE key like ?"
 )
 
-type CommandStore interface {
-	Add(ctx context.Context, command *domain.Commmand) error
-	Get(ctx context.Context, key string) (*domain.Commmand, error)
-	List(ctx context.Context, query string) ([]string, error)
-}
-
 type commandStore struct {
 	db *sql.DB
 }
 
-func NewCommandStore(db *sql.DB) CommandStore {
+func NewCommandStore(db *sql.DB) domain.CommandStore {
 	commandStore := new(commandStore)
 	commandStore.db = db
 	return commandStore

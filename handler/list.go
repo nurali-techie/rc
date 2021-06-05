@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/nurali-techie/rc/service"
+	"github.com/nurali-techie/rc/domain"
 )
 
-func NewListHandler(service service.CommandService) func(res http.ResponseWriter, req *http.Request) {
+func NewListHandler(service domain.CommandService) func(res http.ResponseWriter, req *http.Request) {
 
 	listHandler := func(res http.ResponseWriter, req *http.Request) {
 		query := req.URL.Query().Get("query")
