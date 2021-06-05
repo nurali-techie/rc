@@ -2,6 +2,10 @@ package config
 
 import "github.com/spf13/viper"
 
+const (
+	DB_PATH = "DB_PATH"
+)
+
 type config struct {
 	dbPath string
 }
@@ -12,7 +16,7 @@ func Init() {
 	viperInit()
 	cfg = &config{}
 
-	cfg.dbPath = viper.GetString("DB_PATH")
+	cfg.dbPath = viper.GetString(DB_PATH)
 }
 
 func viperInit() {
