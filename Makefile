@@ -1,5 +1,8 @@
 build: clean
-	go build -o ./out/ ./cmd/rc
+	go build -o ./out/rc .
+
+install: build
+	go install
 
 clean:
 	rm -f ./out/rc
@@ -9,4 +12,4 @@ go-mod:
 	go mod verify
 
 test-integration:
-	go test ./integration -v
+	go test ./tests -v

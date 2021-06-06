@@ -1,0 +1,19 @@
+'rc' stands for 'recall', it is a command manager with which you can store commands and recall them later easily.
+
+usage:
+  rc <command>
+  rc <number>
+
+commands:
+  ls    list all keys
+  add   add new command from clipboard
+  web   start web server at localhost:8383
+  help  display this help text
+
+examples:
+  ls    rc ls; rc ls ping
+  add   rc add ping_url
+  web   rc web
+  help  rc help
+
+version: 0.1.0
