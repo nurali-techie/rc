@@ -11,5 +11,8 @@ go-mod:
 	go mod tidy
 	go mod verify
 
+test:
+	go test `go list ./... | grep -v tests`
+
 test-integration:
 	go test ./tests -v
