@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/nurali-techie/rc/cli"
 	"github.com/nurali-techie/rc/domain"
 	"github.com/nurali-techie/rc/io"
 )
@@ -13,7 +14,7 @@ type addCommand struct {
 	input   io.Input
 }
 
-func NewAddCommand(service domain.CommandService, input io.Input) Command {
+func NewAddCommand(service domain.CommandService, input io.Input) cli.Command {
 	addCmd := new(addCommand)
 	addCmd.service = service
 	addCmd.input = input

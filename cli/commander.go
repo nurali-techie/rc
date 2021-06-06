@@ -1,30 +1,28 @@
-package main
+package cli
 
 import (
 	"context"
-
-	"github.com/nurali-techie/rc/command"
 )
 
 type Commander struct {
-	helpCmd    command.Command
-	defaultCmd command.Command
+	helpCmd    Command
+	defaultCmd Command
 
-	commands map[string]command.Command
+	commands map[string]Command
 }
 
-func NewCommander(helpCmd command.Command, defaultCmd command.Command) *Commander {
+func NewCommander(helpCmd Command, defaultCmd Command) *Commander {
 	commander := new(Commander)
 	commander.defaultCmd = defaultCmd
 	commander.helpCmd = helpCmd
 
-	commander.commands = make(map[string]command.Command)
+	commander.commands = make(map[string]Command)
 	commander.commands["help"] = helpCmd
 
 	return commander
 }
 
-func (c *Commander) Register(name string, command command.Command) {
+func (c *Commander) Register(name string, command Command) {
 	c.commands[name] = command
 }
 

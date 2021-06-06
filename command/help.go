@@ -4,6 +4,7 @@ import (
 	"context"
 	_ "embed"
 
+	"github.com/nurali-techie/rc/cli"
 	"github.com/nurali-techie/rc/io"
 )
 
@@ -14,7 +15,7 @@ type helpCommand struct {
 	output io.Output
 }
 
-func NewHelpCommand(output io.Output) Command {
+func NewHelpCommand(output io.Output) cli.Command {
 	helpCmd := new(helpCommand)
 	helpCmd.output = output
 	return helpCmd
