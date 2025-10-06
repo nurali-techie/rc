@@ -3,6 +3,7 @@ package command
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/nurali-techie/rc/cli"
 	"github.com/nurali-techie/rc/domain"
@@ -36,6 +37,9 @@ func (c *getCommand) Execute(ctx context.Context, args []string) error {
 		return err
 	}
 
+	if !strings.HasPrefix(strings.ToLower(command.Key), "pwd_") {
+		fmt.Println(command.Text)
+	}
 	fmt.Println("info: command copied to clipboard")
 	return nil
 }

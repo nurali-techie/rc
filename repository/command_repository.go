@@ -9,9 +9,11 @@ import (
 )
 
 const (
-	INSERT_COMMAND_SQL = "INSERT INTO commands (key, text) VALUES (?, ?)"
-	SELECT_COMMAND_SQL = "SELECT key, text from commands WHERE key = ?"
-	LIST_COMMAND_SQL   = "SELECT key from commands WHERE key like ?"
+	INSERT_COMMAND_SQL     = "INSERT INTO commands (key, text) VALUES (?, ?)"
+	SELECT_COMMAND_SQL     = "SELECT key, text FROM commands WHERE key = ?"
+	LIST_COMMAND_SQL       = "SELECT key FROM commands WHERE key like ?"
+	UPDATE_KEY_COMMAND_SQL = "UPDATE commands set key = ? WHERE key = ?"
+	DELET_COMMAND_SQL      = "DELETE FROM commands WHERE key = ?"
 )
 
 type commandRepository struct {
@@ -72,4 +74,42 @@ func (s *commandRepository) List(ctx context.Context, query string) ([]string, e
 		keys = append(keys, key)
 	}
 	return keys, nil
+}
+
+func (s *commandRepository) Move(ctx context.Context, oldKey, newKey string) error {
+	stmt, err := s.db.Prepare(UPDATE_KEY_COMMAND_SQL)
+	if err != nil {
+		return err
+	}
+	defer stmt.Close()
+
+	result, err := stmt.Exec(newKey, oldKey)
+	if err != nil {
+		return err
+	}
+	if rowAffected, err := result.RowsAffected(); err != nil {
+		return err
+	} else if rowAffected == 0 {
+		return fmt.Errorf("%q command not found", oldKey)
+	}
+	return nil
+}
+
+func (s *commandRepository) Remove(ctx context.Context, key string) error {
+	stmt, err := s.db.Prepare(DELET_COMMAND_SQL)
+	if err != nil {
+		return err
+	}
+	defer stmt.Close()
+
+	result, err := stmt.Exec(key)
+	if err != nil {
+		return err
+	}
+	if rowAffected, err := result.RowsAffected(); err != nil {
+		return err
+	} else if rowAffected == 0 {
+		return fmt.Errorf("%q command not found", key)
+	}
+	return nil
 }

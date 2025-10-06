@@ -7,12 +7,16 @@ usage:
 commands:
   ls    list all keys
   add   add new command from clipboard
+  mv    move or rename existing command
+  rm    remove existing command
   web   start web server at localhost:8383
   help  display this help text
 
 examples:
   ls    rc ls; rc ls ping
   add   rc add ping_url
+  mv    rc mv ping_url ping_endpoint
+  rm    rc rm ping_url
   web   rc web
   help  rc help
 

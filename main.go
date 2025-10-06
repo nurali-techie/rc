@@ -25,8 +25,10 @@ func main() {
 	defer closeFn(db)
 
 	// setup dependency
+	memoryRepository := repository.NewMemoryRepository(db)
+	memoryService := service.NewMemoryService(memoryRepository)
 	commandRepository := repository.NewCommandRepository(db)
-	commandService := service.NewCommandService(commandRepository)
+	commandService := service.NewCommandService(commandRepository, memoryService)
 
 	// setup input, output
 	clipboard := io.NewClipboard()
@@ -40,6 +42,8 @@ func main() {
 	// register commands
 	commander.Register("add", command.NewAddCommand(commandService, clipboard))
 	commander.Register("ls", command.NewListCommand(commandService, console))
+	commander.Register("mv", command.NewMoveCommand(commandService))
+	commander.Register("rm", command.NewRemoveCommand(commandService))
 	commander.Register("web", command.NewWebCommand(commandService))
 
 	// execute command

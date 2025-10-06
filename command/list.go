@@ -3,6 +3,7 @@ package command
 import (
 	"context"
 	"fmt"
+	"strconv"
 
 	"github.com/nurali-techie/rc/cli"
 	"github.com/nurali-techie/rc/domain"
@@ -26,12 +27,15 @@ func (c *listCommand) Execute(ctx context.Context, args []string) error {
 	if len(args) > 0 {
 		query = args[0]
 	}
-	keys, err := c.service.List(ctx, query)
+	memories, err := c.service.List(ctx, query)
 	if err != nil {
 		return err
 	}
-	for _, key := range keys {
-		c.output.SetContent(fmt.Sprintf("%s\n", key))
+
+	padding := len(strconv.Itoa(len(memories)))
+	seqFormat := fmt.Sprintf("%%%dd", padding)
+	for _, memory := range memories {
+		c.output.SetContent(fmt.Sprintf(seqFormat+") %s\n", memory.Seq, memory.Key))
 	}
 	return nil
 }
